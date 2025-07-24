@@ -35,101 +35,101 @@ const HAS_A = { eye: false, point: true };
 // All voicelines are manually timed for start point and duration. This may not be the most optimized solution, but works for all intents and purposes.
 
 const AUDIO_DETAIL = [
-	{
-		time: 11000,
-		count: 2,
-		startTimes: [1500, 5800],
-		dialog: {
-			Japanese: [
-				"こんなところで、どうなさったんですか？",
-				"そんなにぐったりとされて…"
-			],
-			English: [
-				"What are you doing in a place like this?",
-				"You look so exhausted..."
-			],
-			Chinese: [
-				"您在这种地方做什么呢？",
-				"看上去那么筋疲力尽的样子……"
-			]
-		}
-	},
-	{
-		time: 17000,
-		count: 2,
-		startTimes: [550, 8000],
-		dialog: {
-			Japanese: [
-				"ん？もう少し具体的に伺っても？",
-				"海は一歩間違えば、危険な事故につながりかねない場所ですから。"
-			],
-			English: [
-				"Hm? Could you be a bit more specific?",
-				"The beach can be a dangerous place; one wrong move could lead to an accident."
-			],
-			Chinese: [
-				"嗯？能请您说得再具体一点吗？",
-				"毕竟海边一步走错，就可能会引发危险的事故。"
-			]
-		}
-	},
-	{
-		time: 13000,
-		count: 2,
-		startTimes: [500, 4100],
-		dialog: {
-			Japanese: [
-				"要領を得ませんね。",
-				"状況に応じて求められる対応は異なりますので。"
-			],
-			English: [
-				"I'm not quite following.",
-				"因为根据状况不同，所需要采取的对策也不同。"
-			],
-			Chinese: [
-				"我还是不太明白。",
-				"The necessary response changes depending on the situation."
-			]
-		}
-	},
-	{
-		time: 25000,
-		count: 2,
-		startTimes: [200, 12200],
-		dialog: {
-			Japanese: [
-				"なるほど、そういうことでしたか。危険な状態ではなかったようで、ひと安心です。",
-				"バランス感覚をつかむまでがサーフィンの最初の山場とも申します。最初のうちは誰もが経験することですよ。"
-			],
-			English: [
-				"I see, so that was it. I'm relieved you weren't in any danger.",
-				"Getting your balance is the first major hurdle in surfing; it's something everyone experiences at the start."
-			],
-			Chinese: [
-				"原来如此，是这么回事吗。看来您没什么危险，我就放心了。",
-				"掌握平衡感可以说是冲浪的第一个难关，一开始谁都会这样的。"
-			]
-		}
-	},
-	{
-		time: 17000,
-		count: 2,
-		startTimes: [400, 10300],
-		dialog: {
-			Japanese: [
-				"とはいえ、休憩されるにしても、それではお体が冷えてしまいますね。",
-				"こちらへどうぞ。暖かい飲み物もご用意しておりますので。"
-			],
-			English: [
-				"That said, even if you're resting, you'll catch a chill like that.",
-				"Please, come over here. I've prepared a warm drink for you."
-			],
-			Chinese: [
-				"话虽如此，就算是要休息，这样下去身体也会着凉的。",
-				"请到这边来吧，我也准备了热饮。"
-			]
-		}
-	}
+    {
+        time: 11000,
+        count: 2,
+        startTimes: [1500, 5800],
+        dialog: {
+            Japanese: [
+                "……こんなところでどうなさったんですか？",
+                "そんなにぐったりとされて……。"
+            ],
+            English: [
+                "My, what might you be doing in a place like this?",
+                "To be so utterly exhausted, no less..."
+            ],
+            Chinese: [
+                "……您怎么会在这种地方呢？",
+                "而且，还一副精疲力尽的模样……"
+            ]
+        }
+    },
+    {
+        time: 17000,
+        count: 2,
+        startTimes: [550, 8000],
+        dialog: {
+            Japanese: [
+                "……？もう少し具体的に伺っても？",
+                "海は、一歩間違えば危険な事故につながりかねない場所ですから。"
+            ],
+            English: [
+                "...? Might I inquire as to the specifics?",
+                "The sea is a place where a single misstep can lead to a most dangerous accident, after all."
+            ],
+            Chinese: [
+                "……可以请您再说明得具体一些吗？",
+                "毕竟在海边，一步之差便可能导致无法挽回的危险事故。"
+            ]
+        }
+    },
+    {
+        time: 13000,
+        count: 2,
+        startTimes: [500, 4100],
+        dialog: {
+            Japanese: [
+                "要領を得ませんね……。",
+                "状況に応じて、求められる対応は異なりますので――"
+            ],
+            English: [
+                "I'm afraid your explanation lacks clarity...",
+                "As the proper course of action is dictated entirely by the circumstances—"
+            ],
+            Chinese: [
+                "恕我直言，您说的有些不得要领……。",
+                "因为我们应采取的对策，会因状况而异——"
+            ]
+        }
+    },
+    {
+        time: 25000,
+        count: 2,
+        startTimes: [200, 12200],
+        dialog: {
+            Japanese: [
+                "なるほど、そういうことでしたか。危険な状態ではなかったようで、一安心です。",
+                "バランス感覚を掴むまでが、サーフィンの最初の山場とも申します。最初のうちは、誰もが経験することですよ。"
+            ],
+            English: [
+                "Ah, so that was the situation. It is a relief to know you were not in peril.",
+                "It is often said that finding one's balance is the first true trial of surfing. It is a challenge all beginners must face, you see."
+            ],
+            Chinese: [
+                "原来如此，是这样一回事呀。看来您并无危险，这便让我放心了。",
+                "人们常说，掌握平衡感是冲浪最初的考验。这是任何人在起步阶段都必然会经历的。"
+            ]
+        }
+    },
+    {
+        time: 17000,
+        count: 2,
+        startTimes: [400, 10300],
+        dialog: {
+            Japanese: [
+                "とはいえ……休憩されるにしても、それではお身体が冷えてしまいますね。",
+                "こちらへどうぞ。温かい飲み物もご用意しておりますので。"
+            ],
+            English: [
+                "Be that as it may... even while resting, I'm afraid your body will grow cold.",
+                "If you would please come this way. I have taken the liberty of preparing a warm beverage."
+            ],
+            Chinese: [
+                "话虽如此……即便是在休息，那样也恐怕会让身体受凉呢。",
+                "请移步这边吧，我已为您备好了暖身的饮品。"
+            ]
+        }
+    }
 ];
 
 

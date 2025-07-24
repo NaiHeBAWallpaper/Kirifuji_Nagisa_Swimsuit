@@ -216,8 +216,9 @@
 	"snapshotoverlay" : "",
 	"tags" : [ "Anime" ],
 	"title" : "Blue Archive | Kirifuji Nagisa (Swimsuit)",
-	"type" : "web",
-	"version" : 2,
+	"type" : "Web",
+	"version" : 4,
+	"visibility" : "public",
 	"workshopid" : "3532339978",
 	"workshopurl" : "steam://url/CommunityFilePage/3532339978"
 }
