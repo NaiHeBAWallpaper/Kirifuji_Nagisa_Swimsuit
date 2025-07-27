@@ -28,8 +28,9 @@ let currentTracks = []; // 跟踪当前播放的音频
 window.selectedLanguage = 'Japanese'; // 全局语言变量（挂载到window对象）
 
 const CHARACTER = 'CH0293';
-const BINARY_PATH = window.location.protocol === 'file:' ? location.href.replace('/index.html', `/assets/${CHARACTER}_home.skel`) : `../assets/${CHARACTER}_home.skel`;
-const ATLAS_PATH = window.location.protocol === 'file:' ? location.href.replace('/index.html', `/assets/${CHARACTER}_home.atlas`) : `../assets/${CHARACTER}_home.atlas`;
+let modelResolution = '8k';
+const BINARY_PATH = window.location.protocol === 'file:' ? location.href.replace('/index.html', `/assets/${modelResolution}/${CHARACTER}_home.skel`) : `../assets/${modelResolution}/${CHARACTER}_home.skel`;
+const ATLAS_PATH = window.location.protocol === 'file:' ? location.href.replace('/index.html', `/assets/${modelResolution}/${CHARACTER}_home.atlas`) : `../assets/${modelResolution}/${CHARACTER}_home.atlas`;
 const HAS_A = { eye: false, point: true };
 
 // All voicelines are manually timed for start point and duration. This may not be the most optimized solution, but works for all intents and purposes.
@@ -211,17 +212,18 @@ function playVoiceline() {
 
 	let trackDetails = AUDIO_DETAIL[currentVoiceline - 1];
 
-	setTimeout(function () {
+	const timeout1 = setTimeout(function () {
 		acceptingClick = true;
 		currentVoiceline = clamp(currentVoiceline + 1, 0, AUDIO_DETAIL.length);
 	}, trackDetails.time);
+	voicelineTimeouts.push(timeout1);
 
 	for (let i = 0; i < trackDetails.count; i++) {
 		let track;
 		if (trackDetails.count == 1) track = new Audio(`./assets/audio/${CHARACTER}_memoriallobby_${currentVoiceline}.ogg`);
 		else track = new Audio(`./assets/audio/${CHARACTER}_memoriallobby_${currentVoiceline}_${(i + 1)}.ogg`);
 		track.volume = volume;
-		setTimeout(function () {
+		const timeout2 = setTimeout(function () {
 			track.play();
 			currentTracks.push({ track, index: i }); // 记录当前播放的音频
 			if (dialogBox) {
@@ -233,7 +235,8 @@ function playVoiceline() {
 					textbox.style.opacity = 0;
 				});
 			}
-		}, trackDetails.startTimes[i])
+		}, trackDetails.startTimes[i]);
+		voicelineTimeouts.push(timeout2);
 	}
 }
 
@@ -410,6 +413,13 @@ function init() {
 			if (props.dialogy) textbox.style.top = props.dialogy.value + '%';
 			if (props.drawHitboxes) mouseOptions.drawHitboxes = props.drawHitboxes.value;
 
+			// 监听模型分辨率设置
+			if (props.modelresolution) {
+				modelResolution = props.modelresolution.value;
+				// 重新加载模型
+				reloadModel();
+			}
+
 			// 新增：监听语言选择
 			if (props.dialoglanguage) {
 				window.selectedLanguage = props.dialoglanguage.value; // 更新全局语言变量
@@ -451,7 +461,7 @@ function init() {
 	overlay.width = window.innerWidth;
 	overlay.height = window.innerHeight;
 
-	let config = { alpha: false, premultipliedAlpha: false };
+	let config = { alpha: false, premultipliedAlpha: false, antialias: true };
 	gl = canvas.getContext('webgl', config) || canvas.getContext('experimental-webgl', config);
 	if (!gl) {
 		alert('WebGL is unavailable.');
@@ -471,6 +481,72 @@ function init() {
 
 	requestAnimationFrame(load);
 }
+
+let introAudioIsPlaying = false;
+let introAudioTracks = [];
+let introTimeouts = [];
+let voicelineTimeouts = [];
+
+// Function to reload the model with a new resolution
+function reloadModel() {
+	// Stop the current BGM if it's playing
+	if (bgm) {
+		bgm.pause();
+		bgm = null;
+	}
+	
+	// Stop all intro audio and clear related timeouts
+	introAudioIsPlaying = false;
+	
+	// Stop and clear all intro audio tracks
+	introAudioTracks.forEach(track => {
+		if (track && !track.paused) {
+			track.pause();
+			track.currentTime = 0;
+		}
+	});
+	introAudioTracks = [];
+	
+	// Stop and clear all voiceline audio tracks
+	currentTracks.forEach(({ track }) => {
+		if (track && !track.paused) {
+			track.pause();
+			track.currentTime = 0;
+		}
+	});
+	currentTracks = [];
+	
+	// Clear all intro timeouts
+	introTimeouts.forEach(timeout => clearTimeout(timeout));
+	introTimeouts = [];
+	
+	// Clear all voiceline timeouts
+	voicelineTimeouts.forEach(timeout => clearTimeout(timeout));
+	voicelineTimeouts = [];
+	
+	// Hide dialog box
+	if (textbox) {
+		textbox.style.opacity = 0;
+	}
+	
+	// Generate new paths based on the selected resolution
+	const newBinaryPath = window.location.protocol === 'file:' ? location.href.replace('/index.html', `/assets/${modelResolution}/${CHARACTER}_home.skel`) : `../assets/${modelResolution}/${CHARACTER}_home.skel`;
+	const newAtlasPath = window.location.protocol === 'file:' ? location.href.replace('/index.html', `/assets/${modelResolution}/${CHARACTER}_home.atlas`) : `../assets/${modelResolution}/${CHARACTER}_home.atlas`;
+	
+	// Clear the existing assets
+	assetManager.removeAll();
+	
+	// Load new assets
+	assetManager.loadBinary(newBinaryPath);
+	assetManager.loadTextureAtlas(newAtlasPath);
+	
+	// Clear the current skeleton data to prevent rendering issues during loading
+	spineData = null;
+	
+	// Restart the loading process
+	requestAnimationFrame(load);
+}
+
 
 // CITATION: http://esotericsoftware.com/spine-api-reference#
 // CITATION: http://en.esotericsoftware.com/forum/Spine-Unity-Making-the-arm-follow-the-mouse-7856
@@ -514,7 +590,18 @@ function interactionLoad() {
 function load() {
 	// Wait until the AssetManager has loaded all resources, then load the skeletons.
 	if (assetManager.isLoadingComplete() && typeof introAnimation !== 'undefined') {
-		spineData = loadSpineData(BINARY_PATH, ATLAS_PATH, false);
+		// 根据当前分辨率动态生成路径
+		const dynamicBinaryPath = window.location.protocol === 'file:' ? location.href.replace('/index.html', `/assets/${modelResolution}/${CHARACTER}_home.skel`) : `../assets/${modelResolution}/${CHARACTER}_home.skel`;
+		const dynamicAtlasPath = window.location.protocol === 'file:' ? location.href.replace('/index.html', `/assets/${modelResolution}/${CHARACTER}_home.atlas`) : `../assets/${modelResolution}/${CHARACTER}_home.atlas`;
+		
+		// Check if the assets exist before trying to load them
+		if (!assetManager.get(dynamicBinaryPath) || !assetManager.get(dynamicAtlasPath)) {
+			console.error('Model assets not found for resolution: ' + modelResolution);
+			requestAnimationFrame(load);
+			return;
+		}
+		
+		spineData = loadSpineData(dynamicBinaryPath, dynamicAtlasPath, false);
 
 		// User Option to skip Intro Animation
 		if (introAnimation) {
@@ -535,14 +622,16 @@ function load() {
 		resize();
 
 		// Plays user-defined BGM (if set)
-		bgm = new Audio(bgmfile);
-		bgm.volume = bgmvolume;
-		bgm.loop = true;
-		bgm.play();
-		bgm.addEventListener('ended', function () {
-			this.currentTime = 0;
-			this.play();
-		}, false);
+		if (!bgm) {
+			bgm = new Audio(bgmfile);
+			bgm.volume = bgmvolume;
+			bgm.loop = true;
+			bgm.play();
+			bgm.addEventListener('ended', function () {
+				this.currentTime = 0;
+				this.play();
+			}, false);
+		}
 
 		lastFrameTime = Date.now() / 1000;
 		// Call render every frame.
@@ -593,30 +682,31 @@ function render() {
     lastFrameTime = now;
 
     gl.clearColor(bufferColor[0], bufferColor[1], bufferColor[2], 1);
-    gl.clear(gl.COLOR_BUFFER_BIT);
+	gl.clear(gl.COLOR_BUFFER_BIT);
+	
+	if (spineData) {
+		// Apply the animation state based on the delta time.
+		let skeleton = spineData.skeleton;
+		let state = spineData.state;
+		let premultipliedAlpha = spineData.premultipliedAlpha;
+		state.update(delta);
+		state.apply(skeleton);
+		skeleton.updateWorldTransform(spine.Physics.update);
 
-    // Apply the animation state based on the delta time.
-    let skeleton = spineData.skeleton;
-    let state = spineData.state;
-    let premultipliedAlpha = spineData.premultipliedAlpha;
-    state.update(delta);
-    state.apply(skeleton);
-    skeleton.updateWorldTransform(spine.Physics.update);
+		// Bind the shader and set the texture and model-view-projection matrix.
+		shader.bind();
+		// 修改这两行，从 spine.webgl.Shader 改为 spine.Shader
+		shader.setUniformi(spine.Shader.SAMPLER, 0);
+		shader.setUniform4x4f(spine.Shader.MVP_MATRIX, mvp.values);
 
-    // Bind the shader and set the texture and model-view-projection matrix.
-    shader.bind();
-    // 修改这两行，从 spine.webgl.Shader 改为 spine.Shader
-    shader.setUniformi(spine.Shader.SAMPLER, 0);
-    shader.setUniform4x4f(spine.Shader.MVP_MATRIX, mvp.values);
+		// Start the batch and tell the SkeletonRenderer to render the active skeleton.
+		batcher.begin(shader);
+		skeletonRenderer.premultipliedAlpha = premultipliedAlpha;
+		skeletonRenderer.draw(batcher, skeleton);
+		batcher.end();
 
-    // Start the batch and tell the SkeletonRenderer to render the active skeleton.
-    batcher.begin(shader);
-    skeletonRenderer.premultipliedAlpha = premultipliedAlpha;
-    skeletonRenderer.draw(batcher, skeleton);
-    batcher.end();
-
-    shader.unbind();
-
+		shader.unbind();
+	}
     // throttle fps
 	let elapsed = Date.now() / 1000 - now;
 	let targetFrameTime = 1 / targetFps;
