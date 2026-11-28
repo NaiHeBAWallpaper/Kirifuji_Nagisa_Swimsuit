@@ -44,7 +44,8 @@ const subtitleLocales = {
 	Chinese: 'zh-Hans',
 	TraditionalChinese: 'zh-Hant',
 	Japanese: 'ja',
-	Korean: 'ko'
+	Korean: 'ko',
+	Thai: 'th'
 };
 
 const CHARACTER = 'CH0293';
@@ -61,12 +62,12 @@ const AUDIO_DETAIL = [
                 "そんなにぐったりとされて……。"
             ],
             English: [
-                "My, what might you be doing in a place like this?",
-                "To be so utterly exhausted, no less..."
+                "What brings you all the way out here?",
+                "And sprawled out on a board, at that..."
             ],
             Chinese: [
-                "……您怎么会在这种地方呢？",
-                "而且，还一副精疲力尽的模样……"
+                "您在这里做什么呢？",
+                "怎么瘫在板子上……"
             ],
             TraditionalChinese: [
                 "……您怎麼會在這種地方呢？",
@@ -75,7 +76,8 @@ const AUDIO_DETAIL = [
             Korean: [
                 "이런 곳에서 어쩐 일이신가요?",
                 "보드 위에 축 늘어져서……"
-            ]
+            ],
+            Thai: ["มาทำอะไรอยู่ในที่แบบนี้คะ?","อ่อนระโหยโรยแรงอยู่บนกระดานเลย..."]
         }
     },
     {
@@ -85,12 +87,12 @@ const AUDIO_DETAIL = [
                 "海は、一歩間違えば危険な事故につながりかねない場所ですから。"
             ],
             English: [
-                "...? Might I inquire as to the specifics?",
-                "The sea is a place where a single misstep can lead to a most dangerous accident, after all."
+                "...? Can I ask what happened?",
+                "The ocean is a dangerous place. Even the slightest mistake could lead to a serious accident."
             ],
             Chinese: [
-                "……可以请您再说明得具体一些吗？",
-                "毕竟在海边，一步之差便可能导致无法挽回的危险事故。"
+                "……？您能说得再具体一点吗？",
+                "毕竟在海上，稍有不慎也有可能引起危险的事故。"
             ],
             TraditionalChinese: [
                 "……？能請您再說明得具體一點嗎？",
@@ -99,7 +101,8 @@ const AUDIO_DETAIL = [
             Korean: [
                 "……? 좀 더 구체적으로 여쭤봐도 될까요?",
                 "바다는, 조금만 잘못해도 위험한 사고로 이어질 수 있는 장소니까요."
-            ]
+            ],
+            Thai: ["...? ขอถามเจาะจง มากกว่านี้หน่อยได้มั้ยคะ?","ก็ทะเลเป็นที่ที่ทำอะไรผิดพลาด นิดหน่อย ก็นำไปสู่อุบัติเหตุ อันตรายๆ ได้เลยนี่คะ"]
         }
     },
     {
@@ -109,21 +112,22 @@ const AUDIO_DETAIL = [
                 "状況に応じて、求められる対応は異なりますので――"
             ],
             English: [
-                "I'm afraid your explanation lacks clarity...",
-                "As the proper course of action is dictated entirely by the circumstances—"
+                "I'm having trouble understanding. ",
+                "The proper response will vary based on your situation. Please tell me what happened... "
             ],
             Chinese: [
-                "恕我直言，您说的有些不得要领……。",
-                "因为我们应采取的对策，会因状况而异——"
+                "您这样说我也很难明白……",
+                "情况不同，处理的方式也不一样，所以请您再详细说……"
             ],
             TraditionalChinese: [
                 "我實在難以理解……",
                 "由於根據情況，應對方式也會不同……"
             ],
             Korean: [
-                "이해하기 어렵네요…….",
-                "상황에 따라서 대응이 달라질 수 있으니 좀 더 자세히……."
-            ]
+                "이해하기 어렵네요……. ",
+                "상황에 따라서 대응이 달라질 수 있으니 좀 더 자세히……. "
+            ],
+            Thai: ["เข้าใจได้ยากจังเลยนะคะ... ","เราต้องรับมือต่างกันตามสถานการณ์ เพราะงั้นช่วยอธิบายอีกหน่อย... "]
         }
     },
     {
@@ -133,21 +137,22 @@ const AUDIO_DETAIL = [
                 "バランス感覚を掴むまでが、サーフィンの最初の山場とも申します。最初のうちは、誰もが経験することですよ。"
             ],
             English: [
-                "Ah, so that was the situation. It is a relief to know you were not in peril.",
-                "It is often said that finding one's balance is the first true trial of surfing. It is a challenge all beginners must face, you see."
+                "Aha. I understand now. I'm relieved nothing terrible happened.",
+                "They say that learning to balance is the first hurdle of surfing. It's a difficult obstacle that everyone struggles with initially."
             ],
             Chinese: [
-                "原来如此，是这样一回事呀。看来您并无危险，这便让我放心了。",
-                "人们常说，掌握平衡感是冲浪最初的考验。这是任何人在起步阶段都必然会经历的。"
+                "啊哈，原来是这么回事呀。看来不是什么危险情况，那我就放心了。",
+                "掌握平衡可是冲浪的第一个难关呢。这是每个人在一开始都会经历的。"
             ],
             TraditionalChinese: [
-                "原來如此，是這樣一回事呀。看來您並無危險，這便讓我放心了。",
-                "人們常說，掌握平衡感是衝浪最初的考驗。這是任何人在起步階段都必然會經歷的。"
+                "原來如此，是這麼回事啊。似乎不是陷入危險狀態，我就放心了。",
+                "掌握平衡感，可說是衝浪的第一道難關。剛開始的時候，任何人都會經歷這段時期。"
             ],
             Korean: [
-                "아, 그런 상황이었죠. 당신이 위험에 처하지 않았다는 것은 편안한 일입니다.",
-                "흔히 말하는 바는 타인의 균형을 찾는 것이 서핑의 첫 번째 진정한 시험이라고 합니다."
-            ]
+                "아하, 그런 일이었군요. 위험한 상태는 아니었던 것 같아서 안심입니다.",
+                "균형 감각을 잡기까지가 서핑의 첫 번째 고비라고들 합니다. 처음에는 누구나 겪을 수밖에 없는 일이죠."
+            ],
+            Thai: ["อ้อ เป็นอย่างนี้เองสินะคะ ฟังดูไม่ใช่สถานการณ์อันตราย ถ้างั้นฉันก็วางใจค่ะ","จนกว่าจะเรียนรู้การทรงตัวได้ ก็ยังเรียกว่าอยู่ในความยากลำบากแรก ของการเล่นเซิร์ฟอยู่ค่ะ ในครั้งแรก ไม่ว่าใครก็ ต้องเจอแบบนี้ทั้งนั้นค่ะ"]
         }
     },
     {
@@ -157,21 +162,22 @@ const AUDIO_DETAIL = [
                 "こちらへどうぞ。温かい飲み物もご用意しておりますので。"
             ],
             English: [
-                "Be that as it may... even while resting, I'm afraid your body will grow cold.",
-                "If you would please come this way. I have taken the liberty of preparing a warm beverage."
+                "However...when you're resting like this... ...your body will get cold out on the water.",
+                "Come this way. I have some warm drinks prepared."
             ],
             Chinese: [
-                "话虽如此……即便是在休息，那样也恐怕会让身体受凉呢。",
-                "请移步这边吧，我已为您备好了暖身的饮品。"
+                "不过……这样休息，身体会着凉的。",
+                "来，到我这边来吧。这里有准备好的热饮。"
             ],
             TraditionalChinese: [
-                "話雖如此……即便是在休息，那樣也恐怕會讓身體受涼呢。",
-                "請移步這邊吧，我已為您備好了暖身的飲品。"
+                "話雖如此……就算要休息，那樣也會讓身體著涼的。",
+                "請到這邊來吧。我準備了溫熱的飲料。"
             ],
             Korean: [
-                "어쨌든... 쉬는 동안에도 네 몸이 추워질까봐 걱정된다.",
-                "제발 이쪽으로 오세요. 저는 따뜻한 음료를 준비할 여유를 가지고 있습니다."
-            ]
+                "하지만…… 휴식을 취하더라도, 그런 상태로는 몸이 차가워져 버릴 거예요.",
+                "이쪽으로 오세요. 따뜻한 음료가 준비되어 있답니다."
+            ],
+            Thai: ["แต่ว่า... ต่อให้หยุดพักบ้าง แต่ถ้าอยู่แบบนั้น ตัวจะยิ่งเย็นลงนะคะ","มาทางนี้สิคะ ฉันเตรียมเครื่องดื่ม อุ่นๆ มาด้วยค่ะ"]
         }
     }
 ];
@@ -283,7 +289,7 @@ function playVoiceline() {
 			track.play().catch(finish);
 
 			if (dialogBox) {
-				textbox.textContent = dialog[window.selectedLanguage][index];
+				textbox.textContent = getSubtitleText(dialog, window.selectedLanguage, index);
 				textbox.style.opacity = 1;
 			}
 		},
@@ -453,6 +459,16 @@ function setMouse(event) {
 	return { x: ax - canvas.width * positionX, y: ay - canvas.height * positionY };
 }
 
+function getSubtitleText(dialog, language, index) {
+	let text = dialog?.[language]?.[index];
+	if (text == null && language === 'Thai') {
+		language = 'English';
+		text = dialog?.[language]?.[index];
+	}
+	textbox.lang = subtitleLocales[language];
+	return text ?? "";
+}
+
 function updateSubtitleLanguage() {
 	let language = subtitleLanguagePreference;
 	if (language === 'auto') {
@@ -466,6 +482,8 @@ function updateSubtitleLanguage() {
 			language = 'Japanese';
 		} else if (primary === 'ko' || primary === 'korean' || primary === 'koreana') {
 			language = 'Korean';
+		} else if (primary === 'th' || primary === 'thai') {
+			language = 'Thai';
 		} else {
 			language = 'English';
 		}
@@ -475,7 +493,7 @@ function updateSubtitleLanguage() {
 	window.selectedLanguage = language;
 	textbox.lang = subtitleLocales[language];
 	const clip = currentTracks.at(-1);
-	if (dialogBox && clip) textbox.textContent = clip.dialog[language][clip.index];
+	if (dialogBox && clip) textbox.textContent = getSubtitleText(clip.dialog, language, clip.index);
 }
 
 function init() {
